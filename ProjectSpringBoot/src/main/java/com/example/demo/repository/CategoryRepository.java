@@ -1,0 +1,18 @@
+package com.example.demo.repository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import com.example.demo.entity.Category;
+
+@RepositoryRestResource(collectionResourceRel = "category", path = "category")
+public interface CategoryRepository extends JpaRepository<Category, Long>{
+	
+	Page<Category> findByIsDeleted(Integer isDeleted, Pageable pageable);
+	
+	Page<Category> findByNameContainingAndIsDeleted(String name, Integer isDeleted, Pageable pageable);
+	
+	Category findByIdAndIsDeleted(Long id, Integer isDeleted);
+}
